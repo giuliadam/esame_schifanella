@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>V&G SHOES | Dettaglio</title>
+    <title>V&G SHOES | Prodotto</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,49 +17,76 @@
 
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
-	
-	 <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
+	<!-- jQuery -->
     <script src="js/jquery-3.2.1.js"></script>
 	<script src="js/jquery.lazyload.js"></script>
-	
-	
+
+    
 	<script type="text/javascript" language="javascript">
-		function visualizza(filtra){
-		  if (document.getElementById){
-			if(document.getElementById(filtra).style.display == 'none'){
-			  document.getElementById(filtra).style.display = 'block';
-			}else{
-			  document.getElementById(filtra).style.display = 'none';
-			}
-		  }
+	function visualizza(filtra){
+		if (document.getElementById){
+		if(document.getElementById(filtra).style.display == 'none'){
+      document.getElementById(filtra).style.display = 'block';
+		}else{
+      document.getElementById(filtra).style.display = 'none';
 		}
+		}
+	}	
+	</script> 
+	
+	<script>
+				$(function() {
+		// OPACITY OF BUTTON SET TO 0%
+		$(".thumbnail").css("opacity","1");
+		 
+		// ON MOUSE OVER
+		$(".thumbnail").hover(function () {
+		 
+		// SET OPACITY TO 70%
+		$(this).stop().animate({
+		opacity: .7
+		}, "slow");
+		},
+		 
+		// ON MOUSE OUT
+		function () {
+		 
+		
+		$(this).stop().animate({
+		opacity: 1
+		}, "slow");
+		});
+		});
+			
+	
 	</script>
 	
-
-  
+	<script>
+			$(document).ready( function(){
+					$("img.lazy").lazyload({
+						 effect : "fadeIn",
+						 effect_speed:1000
+					});
+				});
+	</script>
+	
 </head>
-<body>
-	<?php
-			
-		   session_start();
 
-			if (isset($_REQUEST["id"])) {
-			  $id_prodotto=$_REQUEST["id"];
-			}
-			
-			if (isset($_REQUEST["cat"])) {
+<body>
+<?php
+
+  session_start();
+  
+  if (isset($_REQUEST["cat"])) {
 			  $categoria=$_REQUEST["cat"];
 			}
 
-					// dati di connessione al mio database MySQL
+					
+							// dati di connessione al mio database MySQL
 							$db_host = "localhost";
 							$db_user = "root";
 							$db_pass = "matec";
 							$db_name = "shoes_shop";
-
 
 
 							$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
@@ -73,9 +100,10 @@
 
 
 
-	?>
-	
-	<!-- Navigation -->
+										
+  ?>
+
+    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -113,6 +141,7 @@
         </div>
             
         
+        
     </nav>
 
     <!-- Page Content -->
@@ -122,13 +151,14 @@
 
             <div class="col-md-3">
                 <p class="lead">Le nostre calzature</p>
-				
-				<div><a href="#" class="list-group-item" onclick="visualizza('categorie'); return false" class="visible-xs-block">CATEGORIE</a></div>				
-				
-                <div class="list-group" id="categorie">
-				
-				<?php
-						$query_prodotti = "SELECT cod_prodotto, nome, categoria, colore, descrizione, prezzo, immagine FROM shoes_shop.prodotti WHERE cod_prodotto='$id_prodotto' limit 9";
+                
+									
+						<div><a href="#" class="list-group-item" onclick="visualizza('categorie'); return false" class="visible-xs-block">CATEGORIE</a></div>
+						
+						<div class="list-group" id="categorie">
+						
+						<?php
+						$query_prodotti = "SELECT cod_prodotto, nome, categoria, descrizione, prezzo, immagine FROM shoes_shop.prodotti WHERE categoria='$categoria' limit 9";
 
 							if (!($risultato = $conn->query($query_prodotti)))
 							  die("Query sui prodotti fallita!");
@@ -144,9 +174,21 @@
 							echo"<a href='V&G_prodotto.php?cat=scarpe basse' class=\"list-group-item\">Scarpe basse</a>";
 							
 							
-							echo"</div>";
-							echo"</div>";
 						
+						?>
+						</div>		
+						
+			</div>
+						
+				  
+            
+			<div class="col-md-8">
+			<?php
+			
+				
+							echo "<h2>$categoria</h2>";
+						  
+						  
 							$i=1;
 							while ($riga = $risultato->fetch_assoc()) {
 							  $id=$riga["cod_prodotto"];
@@ -154,39 +196,37 @@
 							  $categoria=$riga["categoria"];
 							  $descrizione=substr($riga["descrizione"],0,100)."...";
 							  $prezzo=$riga["prezzo"];
-							  $colore=$riga["colore"];
 							  $immagine=$riga["immagine"];
+								
+							
+														 
+							  echo "<div class=\"col-sm-4 col-lg-4 col-md-4\">";
+							  echo "<div class=\"thumbnail\">";
+							  echo "<a href='V&G_dettaglioprodotto.php?id=$id'><img class=\"img-responsive\" src='$immagine'></a>";
+							  echo "<div class=\"caption\">";
+							  echo "<h4><a href=\"V&G_dettaglioprodotto.php?id=$id\">$nome</a></h4>";
+							  echo "<h4>€ $prezzo</h4>";
+							  echo "</div>";
+							  echo "</div>";
+							  echo "</div>";
 							  
 
 							  
-								  
-								  
-									echo "<div class=\"col-md-5\">";
-									echo "<h2>$nome</h2>";
-										echo "<div class=\"thumbnail\">";
-										echo "<img src=\"$immagine\">";
-										echo "</div>";
-										echo "</div>";
-										echo "<div class=\"col-md-3\">";
-										echo "<br>";
-										echo "<br>";
-										echo "<h4>EUR $prezzo</h4>";
-										echo "<h4>$descrizione</h4>";
-										echo "<h4>Colore: $colore</h4>";
-										echo "<a href='aggiungicarrello.php?id=$id'><button>AGGIUNGI AL CARRELLO</button></a>";
-									    echo "</div>";
-								  
+
 							}
-							?>
-			
-				
-		</div>
-    </div>
-    <!-- /.container -->
-	
+							
+												   
 
-	
-	   <div class="container">
+					?>
+
+				</div>
+
+     </div>		
+
+    </div>
+    
+
+    <div class="container">
 
         <hr>
 
@@ -221,6 +261,12 @@
     </div>
     <!-- /.container -->
 
-	
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
 </body>
+
 </html>

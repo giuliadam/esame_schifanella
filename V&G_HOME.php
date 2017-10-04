@@ -17,120 +17,80 @@
 
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
+	
+	<!-- jQuery -->
+    <script src="js/jquery-3.2.1.js"></script>
+	<script src="js/jquery.lazyload.js"></script>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    
 
+	<script type="text/javascript" language="javascript">
+		function visualizza(filtra){
+		  if (document.getElementById){
+			if(document.getElementById(filtra).style.display == 'none'){
+			  document.getElementById(filtra).style.display = 'block';
+			}else{
+			  document.getElementById(filtra).style.display = 'none';
+			}
+		  }
+		}
+	</script>
+    
+	
+	<script>
+				$(function() {
+		// OPACITY OF BUTTON SET TO 0%
+		$(".thumbnail").css("opacity","1");
+		 
+		// ON MOUSE OVER
+		$(".thumbnail").hover(function () {
+		 
+		// SET OPACITY TO 70%
+		$(this).stop().animate({
+		opacity: .7
+		}, "slow");
+		},
+		 
+		// ON MOUSE OUT
+		function () {
+		 
+		
+		$(this).stop().animate({
+		opacity: 1
+		}, "slow");
+		});
+		});
+			
+	
+	</script>
+	
+	<script>
+			$(document).ready( function(){
+					$("img.lazy").lazyload({
+						 effect : "fadeIn",
+						 effect_speed:1000
+					});
+				});
+	</script>
+	
+	
 </head>
 
-<body>    
+<body> 
 
+   <?php
+     session_start();
+	 
+	 if (!isset($_SESSION["nome"])) {
+      header('Location: login.php');
+      exit;
+    }
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="V&G_HOME.html">V&G SHOES</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="login.php">Accedi</a>
-                    </li>
-                    <li>
-                        <a href="V&G_carrello.html">Il mio carrello</a>
-                    </li>
-                    
-                </ul>
-				
-				<!--Aggiustare barra di ricerca su responsive deve essere al 100%. gestire con jQuery? Dentro o fuori il menu?-->
-				<form action="" class="search-form">
-                <div class="form-group has-feedback">
-            		<label for="search" class="sr-only">Search</label>
-            		<input type="text" class="form-control" name="search" id="search" placeholder="search">
-              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
-            	</div>
-            </form>
-        </div>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">Le nostre calzature</p>
-                <div class="list-group">
-                    <a href="V&G_sneakers.html" class="list-group-item">Sneakers</a>
-                    <a href="V&G_sandali.html" class="list-group-item">Sandali</a>
-                    <a href="V&G_stivali.html" class="list-group-item">Stivaletti/Stivali</a>
-					<a href="V&G_decolletè.html" class="list-group-item">Decolleté</a>
-                    <a href="V&G_ballerine.html" class="list-group-item">Ballerine</a>
-                    <a href="V&G_scarpebasse.html" class="list-group-item">Scarpe basse</a>
-					<a href="#" class="list-group-filter visible-xs-block visible-sm-block">FILTRA</a>
-					
-                  </div>
-				  
-				 
-            </div>
-
-            <div class="col-md-9">
-
-                <div class="row carousel-holder">
-
-                    <div class="col-md-12">
-                        <div id="carousel-example-generic" class="carousel hidden-xs" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                            </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                
-                    
-						<?php
-												
-													// dati di connessione al mio database MySQL
+				// dati di connessione al mio database MySQL
 							$db_host = "localhost";
-							$db_user = "vagiu";
+							$db_user = "root";
 							$db_pass = "matec";
 							$db_name = "shoes_shop";
 
@@ -147,58 +107,172 @@
 
 
 
-			$query_prodotti = "SELECT cod_prodotto, nome, categoria, descrizione, prezzo, immagine FROM shoes_shop.prodotti limit 9";
+							$query_prodotti = "SELECT cod_prodotto, nome, categoria, descrizione, prezzo, immagine FROM shoes_shop.prodotti limit 9";
 
-        if (!($risultato = $conn->query($query_prodotti)))
-          die("Query sui prodotti fallita!");
+						if (!($risultato = $conn->query($query_prodotti)))
+						  die("Query sui prodotti fallita!");
+					  
 
-        $i=1;
-        while ($riga = $risultato->fetch_assoc()) {
-          $id=$riga["cod_prodotto"];
-          $nome = $riga["nome"];
-          $categoria=$riga["categoria"];
-          $descrizione=substr($riga["descrizione"],0,100)."...";
-          $prezzo=$riga["prezzo"];
-          $immagine=$riga["immagine"];
+					  
+					  
 
-          if ($i==1) {
-            echo "<div class='row'>";
-          }
+   ?>   
 
-          echo "<div class=\"col-sm-4 col-lg-4 col-md-4\">";
-		  echo "<div class=\"thumbnail\">";
-		  echo "<img src=\"$immagine\">";
-		  echo "<div class=\"caption\">";
-		  echo "<h4 class=\"pull-right\">$prezzo</h4>";
-		  echo "<h4><a href=\"V&G_dettaglioprodotto.php\">$nome</a></h4>";
-		  echo "</div>";
-		  echo "</div>";
-		  echo "</div>";
-                //echo "<a href='dettaglio_prodotto.php?id=$id'><img class='img-thumbnail prodotto' src='images/prodotti/$immagine' alt=''/></a>";
-         
 
-          if ($i==3) {
-            echo "</div>";
-            $i=1;
-          } else {
-            $i++;
-          }
-
-        }
-        if ($i!=1) {
-          echo "</div>";
-        }
-
-        ?>
-                        
-					
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="V&G_HOME.php">V&G SHOES</a>
+            </div>
+            
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
                     
+                    <li>
+                        <a href="V&G_carrello.php">Il mio carrello</a>
+                    </li>
+					   <li>
+                        <p style="text-align: right;">Non sei <?php echo $_SESSION["nome"]; ?>?<a href="logout.php"> esci</a></p>
+                    </li>
+                    
+                </ul>
+            							
+				<form action="ricerca_scarpe.php" class="search-form" role="search" method="post">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" class="form-control" name="search" id="search" placeholder="Cerca">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+				</form>
+				
+			</div>
+        </div>
+            
+       
+       
+    </nav>
 
-               
+    <!-- Page Content -->
+    <div class="container">
 
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">Le nostre calzature</p>
+				<div><a href="#" class="list-group-item" onclick="visualizza('categorie'); return false" class="visible-xs-block">CATEGORIE</a></div>
+                <div class="list-group" id="categorie">
+				
+				<?php
+				
+				
+
+						if (!($risultato = $conn->query($query_prodotti)))
+						  die("Query sui prodotti fallita!");
+					  
+				
+					
+                    echo"<a href='V&G_prodotto.php?cat=sneakers' class=\"list-group-item\">Sneakers<a>";
+					echo"<a href='V&G_prodotto.php?cat=sandali' class=\"list-group-item\">Sandali</a>";
+					echo"<a href='V&G_prodotto.php?cat=Stivali' class=\"list-group-item\">Stivaletti/Stivali</a>";
+					echo"<a href='V&G_prodotto.php?cat=decollete' class=\"list-group-item\">Decolleté</a>";
+					echo"<a href='V&G_prodotto.php?cat=ballerine' class=\"list-group-item\">Ballerine</a>";
+					echo"<a href='V&G_prodotto.php?cat=scarpe basse' class=\"list-group-item\">Scarpe basse</a>";
+					
+					
+				
+				?>
+				 </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="row carousel-holder">
+
+                    <div class="col-md-12">
+                        <div id="carousel-example-generic" class="carousel hidden-xs" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img class="slide-image" src="images/slide1.jpg" alt="">
+                                </div>
+                                <div class="item">
+                                    <img class="slide-image" src="images/slide2.jpg" alt="">
+                                </div>
+                                <div class="item">
+                                    <img class="slide-image" src="images/slide3.jpg" alt="">
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>  
+		</div>
+           
+
+                <div class="container">
+					<div class="row">
+						<div class="col-md-3">
+						</div>
+						
+						<div class="col-md-8">
+                    
+						<?php
+						
+						$i=1;
+						while ($riga = $risultato->fetch_assoc()) {
+						  $id=$riga["cod_prodotto"];
+						  $nome = $riga["nome"];
+						  $categoria=$riga["categoria"];
+						  $descrizione=substr($riga["descrizione"],0,100)."...";
+						  $prezzo=$riga["prezzo"];
+						  $immagine=$riga["immagine"];
+					  
+					  
+												
+						  echo "<div class=\"col-sm-4 col-lg-4 col-md-4\">";
+						  echo "<div class=\"thumbnail\">";
+						  echo "<a href='V&G_dettaglioprodotto.php?id=$id' ><img class=\"img-responsive\" src=\"$immagine\"></a>";
+						  echo "<div class=\"caption\">";
+						  echo "<h4><a href=\"V&G_dettaglioprodotto.php?id=$id\">$nome</a></h4>";
+						  echo "<h4>€ $prezzo</h4>";
+						  echo "</div>";
+						  echo "</div>";
+						  echo "</div>";
+						  
+						 
+						}
+						
+						 
+						
+						?>
+							
+						</div>
+					</div>
+				</div>
+    
+	
+	
+	</div>    
         
-
-    </div>
     <!-- /.container -->
 
    <div class="container">
@@ -236,11 +310,7 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    
 
 </body>
 

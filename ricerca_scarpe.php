@@ -18,20 +18,59 @@
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
 	<script src="jquery-3.2.1.min.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	
+     <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+	
+	
+	<script>
+				$(function() {
+		// OPACITY OF BUTTON SET TO 0%
+		$(".thumbnail").css("opacity","1");
+		 
+		// ON MOUSE OVER
+		$(".thumbnail").hover(function () {
+		 
+		// SET OPACITY TO 70%
+		$(this).stop().animate({
+		opacity: .7
+		}, "slow");
+		},
+		 
+		// ON MOUSE OUT
+		function () {
+		 
+		
+		$(this).stop().animate({
+		opacity: 1
+		}, "slow");
+		});
+		});
+			
+	
+	</script>
+	
+	<script>
+			$(document).ready( function(){
+					$("img.lazy").lazyload({
+						 effect : "fadeIn",
+						 effect_speed:1000
+					});
+				});
+	</script>
+	
+	
+	
 
 </head>
 
 <body> 
 
    <?php
-    //error_reporting(E_ALL);
-    //ini_set( 'display_errors','1');
+    
 
     session_start();
 
@@ -41,7 +80,7 @@
       exit;
     }
 	
-	f (!isset($_SESSION["carrello"])) {
+	if (!isset($_SESSION["carrello"])) {
           $_SESSION["carrello"]="";
         }
 
@@ -53,28 +92,27 @@
           $carrello=explode(" ",trim($_SESSION["carrello"]));
           $carrello=array_unique($carrello);
         }
-	
-   $db_host = "localhost";
-	$db_user = "root";
-	$db_pass = "matec";
-	$db_name = "shoes_shop";
+			
+			$db_host = "localhost";
+			$db_user = "root";
+			$db_pass = "matec";
+			$db_name = "shoes_shop";
 
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+		$connex = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-							// verifica errori di connessione
-							if ($conn->connect_error) {
-								die("Connection failed: " . $conn->connect_error);
-								exit();
-							
-							} 
+									// verifica errori di connessione
+									if ($connex->connect_error) {
+										die("Connection failed: " . $connex->connect_error);
+										exit();
+									
+									} 
+																
+																							
+														?>
+							  
 
-$query_ricerca = "SELECT * FROM shoes_shop.prodotti WHERE nome OR descrizione OR colore  LIKE '%".$_REQUEST["search"]."%' limit 9";
-
-							if (!($risultato = $conn->query($query_ricerca)))
-						  die("Query sui prodotti fallita!");
-					  
-
-   ?>   
+							  
+							  
    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -86,14 +124,14 @@ $query_ricerca = "SELECT * FROM shoes_shop.prodotti WHERE nome OR descrizione OR
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="V&G_HOME.html">V&G SHOES</a>
+                <a class="navbar-brand" href="V&G_HOME.php">V&G SHOES</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
+            
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     
                     <li>
-                        <a href="V&G_carrello.html">Il mio carrello</a>
+                        <a href="V&G_carrello.php">Il mio carrello</a>
                     </li>
 					   <li>
                         <p style="text-align: right;">Non sei <?php echo $_SESSION["nome"]; ?>?<a href="logout.php"> esci</a></p>
@@ -103,76 +141,78 @@ $query_ricerca = "SELECT * FROM shoes_shop.prodotti WHERE nome OR descrizione OR
             
 				
 				
-				<form action="ricerca_scarpe.php" class="search-form" role="search" method="post">
-                <div class="form-group has-feedback">
-            		<label for="search" class="sr-only">Search</label>
-            		<input type="text" class="form-control" name="search" id="search" placeholder="Cerca">
-              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
-            	</div>
-            </form>
+				<form action="ricerca_scarpe.php" class="search-form" id="search" role="search" method="post">
+					<div class="form-group has-feedback">
+						<label for="search" class="sr-only">Search</label>
+						<input type="text" class="form-control" name="search" id="search" placeholder="Cerca">
+						<span class="glyphicon glyphicon-search form-control-feedback"></span>
+					</div>
+				</form>
+			
         </div>
             </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
+            
+       
+        
     </nav>
+	
+	<div class="container">
 	  <div class="row">
           <div id="colonna1" class="col-xs-12 col-sm-9 colonna">
-        <div class="row">
-          <div class="col-xs-12 colonna">
-                <div class="page-header">
-                  <h3>Risultati della ricerca</h3>
-                </div>
-            </div>
-          </div>
-            <?php
+				<div class="row">
+				  <div class="col-xs-12 colonna">
+						<div class="page-header">
+						  <h3>Risultati della ricerca</h3>
+						</div>
+					</div>
+				</div>
+            
+			<?php
+				$testo = isset($_POST["search"]) ? htmlspecialchars($_POST["search"]) : '';
+				
+				$query_ricerca = "SELECT * FROM shoes_shop.prodotti WHERE categoria='$testo' OR colore='$testo' limit 9";
+																																		
+																
+				if (!($risult = $connex->query($query_ricerca)))
+				die("Query sui prodotti fallita!");
 
-              if (!($risultato = $connessione->query($query_ricerca)))
-                die("Query sui prodotti fallita!");
-
-              $i=1;
-              $n=0;
-              while ($riga = $risultato->fetch_assoc()) {
-						  $id=$riga["cod_prodotto"];
-						  $nome = $riga["nome"];
-						  $categoria=$riga["categoria"];
-						  $descrizione=substr($riga["descrizione"],0,100)."...";
-						  $prezzo=$riga["prezzo"];
-						  $immagine=$riga["immagine"];
-					  
+														 
+				
+			     $i=0;
+				 while ($riga = $risult->fetch_assoc()) {
+					 
+					$id=$riga["cod_prodotto"];
+					$nome = $riga["nome"];
+					$categoria=$riga["categoria"];
+					$descrizione=substr($riga["descrizione"],0,100)."...";
+					$prezzo=$riga["prezzo"];
+					$immagine=$riga["immagine"];
+																  
 						
-						  if ($i==1) {
-							echo "<div class=\"row\">";
-							
-						  }
-						
-						  echo "<div class=\"col-sm-4 col-lg-4 col-md-4\">";
-						  echo "<div class=\"thumbnail\">";
-						  echo "<a href='V&G_dettaglioprodotto.php?id=$id'><img src=\"$immagine\"></a>";
-						  echo "<div class=\"caption\">";
-						  echo "<h4 class=\"pull-right\">$prezzo</h4>";
-						  echo "<h4><a href=\"V&G_dettaglioprodotto.php?id=$id\">$nome</a></h4>";
-						  echo "</div>";
-						  echo "</div>";
-						  echo "</div>";
-						  
-						 
-						}
-						
-						  if ($i==3) {
-							echo "</div>";
-							$i=1;
-						  } else {
-							$i++;
-						  }
-
-						
-						if ($i!=1) {
-						  echo "</div>";
-						}
-						
-						?>
-			<!-- /.container -->
+					echo "<div class=\"col-sm-4 col-lg-4 col-md-4\">";
+					echo "<div class=\"thumbnail\">";
+					echo "<a href='V&G_dettaglioprodotto.php?id=$id'><img class=\"img-responsive\" src=\"$immagine\"></a>";
+				    echo "<div class=\"caption\">";
+					echo "<h4 class=\"pull-right\">$prezzo</h4>";
+					echo "<h4><a href=\"V&G_dettaglioprodotto.php?id=$id\">$nome</a></h4>";
+					echo "</div>";
+					echo "</div>";
+					echo "</div>";
+					$i++;
+					}
+					
+					echo("<br>");
+					echo("<br>");
+					echo("<br>");
+					echo("<br>");
+					echo("Risultati trovati: $i");
+			?>	
+															
+															
+															
+			</div>
+			</div>
+			</div>
 
    <div class="container">
 
@@ -209,11 +249,7 @@ $query_ricerca = "SELECT * FROM shoes_shop.prodotti WHERE nome OR descrizione OR
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+   
 
 </body>
 
