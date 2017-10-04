@@ -5000,7 +5000,7 @@ a.badge:focus {
 }
 .thumbnail {
   display: block;
-  padding: 4px;
+  padding: 5px;
   margin-bottom: 20px;
   line-height: 1.42857143;
   background-color: #fff;
@@ -6571,6 +6571,9 @@ button.close {
   .visible-xs {
     display: block !important;
   }
+  .hidden-xs{
+	  display:none;
+  }
   table.visible-xs {
     display: table !important;
   }
@@ -6753,5 +6756,15 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+@media(max-width: 480px) {
+	
+	
+	
+	.list-group{	
+		display:none;
+	}
+	
+
 }
 /*# sourceMappingURL=bootstrap.css.map */

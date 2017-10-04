@@ -59,7 +59,7 @@ body {
   text-align: center;
   color: #3596e0;
   left: initial;
-  font-size: 14px;
+  font-size: 1em;
 }
 
 .list-group-filter {
@@ -85,8 +85,9 @@ position: relative;
 }
 
 .caption {
-    height: 130px;
-    overflow: hidden;
+    height: 100px;
+	overflow: hidden;
+	
 }
 
 .caption h4 {
@@ -94,7 +95,9 @@ position: relative;
 }
 
 .thumbnail img {
-    width: 100%;
+    max-width: 100%;
+	
+	
 }
 
 .ratings {
@@ -105,6 +108,8 @@ position: relative;
 
 .thumbnail {
     padding: 0;
+	min-height: 380px;
+	
 }
 
 .thumbnail .caption-full {
@@ -118,3 +123,4 @@ footer {
 	
 	
 }
+
