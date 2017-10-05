@@ -68,7 +68,7 @@
 	
 	<script>
 			$(document).ready( function(){
-					$("img.lazy").lazyload({
+					$("img").lazyload({
 						 effect : "fadeIn",
 						 effect_speed:1000
 					});
